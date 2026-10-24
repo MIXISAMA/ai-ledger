@@ -41,10 +41,10 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 receiveURL();
 if ('serviceWorker' in navigator) {
  navigator.serviceWorker.register('./sw.js').then(()=>navigator.serviceWorker.ready).then(async reg=>{
-  const cache=await caches.open('ai-ledger-'+reg.scope+'v3');
-  const paths=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
+  const cache=await caches.open('ai-ledger-'+reg.scope+'v4');
+  const paths=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./tabs.css','./tabs.js'];
   const found=await Promise.all(paths.map(path=>cache.match(new URL(path,reg.scope).href)));
-  $('offlineStatus').textContent=found.every(Boolean)?'离线资源已就绪（5/5），可断网使用；数据仅保存在本机。':'离线缓存尚未完整，请联网重新打开。';
+  $('offlineStatus').textContent=found.every(Boolean)?'版本 4 离线资源已就绪（7/7），可断网使用；数据仅保存在本机。':'离线缓存尚未完整，请联网重新打开。';
  }).catch(e=>{$('offlineStatus').textContent='离线缓存不可用：'+e.message});
 } else {$('offlineStatus').textContent='当前浏览器不支持离线缓存。'}
-</script></body></html>
+</script><link rel="stylesheet" href="./tabs.css"><script src="./tabs.js"></script></body></html>
